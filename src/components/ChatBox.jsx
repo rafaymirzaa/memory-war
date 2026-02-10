@@ -21,7 +21,7 @@ export default function ChatBox({ socket, playerName }) {
   }, [socket]);
 
   useEffect(() => {
-    // Auto-scroll to bottom when new messages arrive
+    // auto scroll to bottom when new messages arrive
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
@@ -44,7 +44,7 @@ export default function ChatBox({ socket, playerName }) {
 
   return (
     <>
-      {/* Toggle Button */}
+      {}
       <motion.button
         className="chat-toggle"
         onClick={() => setIsOpen(!isOpen)}
@@ -54,7 +54,7 @@ export default function ChatBox({ socket, playerName }) {
         💬
       </motion.button>
 
-      {/* Chat Box */}
+      {}
       <AnimatePresence>
         {isOpen && (
           <motion.div

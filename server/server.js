@@ -42,19 +42,12 @@ const scoreSchema = new mongoose.Schema(
 
 const Score = mongoose.model("Score", scoreSchema);
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/memory-game';
+const MONGO_URI = process.env.MONGO_URI
 const PORT = process.env.PORT || 5000;
 
-mongoose
-  .connect(MONGO_URI)
-  .then(() => {
-    console.log('MongoDB connected');
-    httpServer.listen(PORT, '127.0.0.1', () => {
-      console.log(`Server running on http://127.0.0.1:${PORT}`);
-    });
-  })
-  .catch((err) => console.error('MongoDB connection error:', err));
-
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 // socket.io 
 const activePlayers = new Map(); // store active players
 
