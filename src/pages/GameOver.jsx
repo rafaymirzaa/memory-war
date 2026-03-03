@@ -1,7 +1,7 @@
 import { useLocation, Link } from "react-router";
 import { useState, useEffect } from "react";
 
-const API_URL = 'http://127.0.0.1:5000';
+const API_URL = 'http://44.211.94.94:5000';
 
 const GameOver = () => {
   const location = useLocation();

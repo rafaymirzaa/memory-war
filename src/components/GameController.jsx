@@ -3,7 +3,7 @@ import Score from "./Score";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 
-const API_URL = 'http://127.0.0.1:5000';
+const API_URL = 'http://44.211.94.94:5000';
 
 export default function GameController({ playerName, socket, isPlayer1 = true, disabled = false }) {
   const navigate = useNavigate();

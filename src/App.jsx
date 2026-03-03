@@ -2,8 +2,9 @@ import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
-const SOCKET_URL = 'http://127.0.0.1:5000';
 
+
+const SOCKET_URL = 'http://44.211.94.94:5000';
 export default function App() {
   const [playerName, setPlayerName] = useState("");
   const [socket, setSocket] = useState(null);
