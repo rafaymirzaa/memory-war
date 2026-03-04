@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
 
-
-const SOCKET_URL = 'http://44.211.94.94:5000';
+const SOCKET_URL = 'http://44.211.94.94';
 export default function App() {
   const [playerName, setPlayerName] = useState("");
   const [socket, setSocket] = useState(null);

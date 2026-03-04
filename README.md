@@ -55,8 +55,7 @@ cd server
 npm install
 
 # Create .env file and add:
-# MONGO_URI=mongodb://localhost:27017/memory-game
-# PORT=5000
+
 
 npm start
 ```
@@ -73,7 +72,6 @@ npm run dev
 mongod
 ```
 
-Game should be running at `http://localhost:5173`
 
 ## How to Play
 

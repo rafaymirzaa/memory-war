@@ -10,29 +10,21 @@ dotenv.config();
 const app = express();
 const httpServer = createServer(app);
 
-// =======================
-// Environment Variables
-// =======================
-
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) {
-  console.error("❌ MONGO_URI is missing in .env file");
+  console.error("MONGO_URI is missing in .env file");
   process.exit(1);
 }
 
-// =======================
 // Middleware
-// =======================
+
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-// =======================
-// Socket.io Setup
-// =======================
-
+// socket io config
 const io = new Server(httpServer, {
   cors: {
     origin: "*",
@@ -40,9 +32,7 @@ const io = new Server(httpServer, {
   },
 });
 
-// =======================
 // MongoDB Schema
-// =======================
 
 const scoreSchema = new mongoose.Schema(
   {
@@ -60,39 +50,36 @@ const scoreSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { 
+    timestamps: true 
+  }
 );
 
 const Score = mongoose.model("Score", scoreSchema);
 
-// =======================
 // MongoDB Connection
-// =======================
-
 mongoose
   .connect(MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB connected successfully");
+    console.log("MongoDB connected successfully");
 
-    // 🔥 LISTEN ON ALL INTERFACES (IMPORTANT FOR AWS)
+    // listens on all ports for aws
     httpServer.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`🌍 Accessible at: http://YOUR_PUBLIC_IP:${PORT}`);
+      console.log(`🌍 Accessible at: http://our public ip:${PORT}`);
     });
   })
   .catch((err) => {
-    console.error("❌ MongoDB connection error:", err);
+    console.error("MongoDB connection error:", err);
     process.exit(1);
   });
 
-// =======================
 // Socket.io Logic
-// =======================
 
 const activePlayers = new Map();
 
 io.on("connection", (socket) => {
-  console.log("🔌 User connected:", socket.id);
+  console.log("Socket user connected:", socket.id);
 
   socket.on("player:join", (playerName) => {
     activePlayers.set(socket.id, {
@@ -154,10 +141,7 @@ io.on("connection", (socket) => {
     console.log("❌ User disconnected:", socket.id);
   });
 });
-
-// =======================
 // REST API Routes
-// =======================
 
 // Health check route
 app.get("/", (req, res) => {

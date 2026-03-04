@@ -3,7 +3,7 @@ import Score from "./Score";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 
-const API_URL = 'http://44.211.94.94:5000';
+const API_URL = 'http://44.211.94.94'; // always live on t3.micro working with nginx reverse proxy
 
 export default function GameController({ playerName, socket, isPlayer1 = true, disabled = false }) {
   const navigate = useNavigate();
