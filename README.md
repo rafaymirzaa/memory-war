@@ -244,7 +244,6 @@ Built with **Firebase Authentication** supporting:
 | `MONGO_URI` | `server/.env` | MongoDB Atlas connection string |
 | `PORT` | `server/.env` | Backend port (default 5000) |
 
-> ⚠️ Never commit your `.env` file. It is already in `.gitignore`.
 
 ---
 
