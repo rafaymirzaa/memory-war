@@ -1,154 +1,253 @@
-# Multiplayer Memory Game
+# 🧠 Memory Wars
 
-A real-time memory card game where you test your recall against other players. Built to learn WebSocket architecture and real-time state synchronization.
+A real-time multiplayer memory card game built with React, Node.js, Socket.io, and MongoDB — deployed on AWS EC2.
 
-![React](https://img.shields.io/badge/React-19.2.0-blue)
-![Node.js](https://img.shields.io/badge/Node.js-Express-green)
-![Socket.io](https://img.shields.io/badge/Socket.io-4.8.3-black)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-brightgreen)
+![Game](https://img.shields.io/badge/status-live-brightgreen) ![React](https://img.shields.io/badge/React-Vite-blue) ![Node](https://img.shields.io/badge/Backend-Node.js-green) ![MongoDB](https://img.shields.io/badge/Database-MongoDB_Atlas-darkgreen) ![AWS](https://img.shields.io/badge/Hosted-AWS_EC2-orange)
 
-## What It Does
-
-Simple concept: click cards without repeating yourself. Each click shuffles the deck and tests your memory. Mess up once and it's game over.
-
-The twist? It's multiplayer. Watch other players' scores climb in real-time, chat with them, and compete for the top spot on the leaderboard.
-
-## Features
-
-**Core Game**
-- Memory challenge with dynamic card shuffling
-- Rick and Morty themed cards (because why not)
-- High scores saved to MongoDB
-- Split-screen view showing another player's game alongside yours
-
-**Multiplayer Stuff**
-- Real-time chat (with timestamps and system notifications)
-- Live player list showing everyone's current scores
-- WebSocket-based score synchronization
-- Join/leave notifications
-
-## Tech Stack
-
-**Frontend:** React, React Router, Framer Motion, Socket.io Client, Vite  
-**Backend:** Node.js, Express 5, Socket.io, MongoDB (Mongoose)  
-**Styling:** Custom CSS with glassmorphism effects
-
-## Getting Started
-
-### What You Need
-- Node.js (v16+)
-- MongoDB running locally or a MongoDB Atlas account
-- Two terminal windows
-
-### Setup
-
-**1. Clone and install:**
-```bash
-git clone <repository-url>
-cd memory-game
-npm install
-```
-
-**2. Backend setup:**
-```bash
-cd server
-npm install
-
-# Create .env file and add:
-
-
-npm start
-```
-
-**3. Frontend setup:**
-```bash
-# In a new terminal, from project root:
-npm run dev
-```
-
-**4. MongoDB:**
-```bash
-# If running locally:
-mongod
-```
-
-
-## How to Play
-
-1. Enter your name on the welcome screen
-2. Click any card to start
-3. Remember which cards you've clicked
-4. Cards shuffle after each click
-5. Don't click the same card twice
-6. Try to beat other players' high scores
-
-Click the 💬 icon for chat, 👥 icon to see active players.
-
-## API Reference
-
-### REST Endpoints
+## 🌍 Live Demo
 
 ```
-GET  /scores              # Top 10 high scores
-GET  /scores/:playerName  # Specific player's score
-POST /scores              # Create/update score
-DELETE /scores/:playerName # Remove player score
+http://44.211.94.94
 ```
-
-### Socket Events
-
-**Client → Server:**
-- `player:join` - Join with player name
-- `chat:send` - Send message
-- `score:update` - Update score
-- `game:stateUpdate` - Sync game state
-
-**Server → Client:**
-- `chat:message` - Broadcast message
-- `players:update` - Updated player list
-- `game:stateUpdate` - Other player's game state
-
-## Things I'd Improve
-
-- Add proper authentication (currently anyone can use any name)
-- Implement game rooms/lobbies for multiple concurrent games
-- Add reconnection logic for dropped socket connections
-- Input validation and rate limiting
-- Proper error boundaries in React
-- Unit and integration tests
-- Scale beyond 2-player split-screen view
-
-## Learning Takeaways
-
-This was my first dive into real-time web architecture. Key things I learned:
-
-- How WebSockets differ from HTTP polling
-- Broadcasting vs. emitting in Socket.io
-- Managing state synchronization across clients
-- Handling socket lifecycle (connect/disconnect)
-- MongoDB integration with Mongoose
-- React state management for real-time updates
-
-## Known Issues
-
-- No name collision handling (two "Player1"s will cause conflicts)
-- Chat history doesn't persist
-- Game state can desync if connection drops
-- No mobile optimization yet
-- Only shows 2 players max in split-screen view
-
-## Browser Support
-
-Works best in Chrome. Should work in Firefox, Safari, and Edge but less tested.
-
-## License
-
-MIT License - do whatever you want with this
-
-## Questions?
-
-Open an issue or reach out. Happy to discuss the architecture or any problems you run into setting it up.
 
 ---
 
-*Built as a learning project to understand real-time multiplayer architecture. Feedback welcome!*
+## 🎮 What It Does
+
+- Flip cards and try not to click the same one twice
+- Real-time multiplayer — see your opponent's game live
+- High scores saved to a cloud database
+- In-game chat between players
+- Live player list showing who's online
+- User authentication with email/password or Google
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- **React** (Vite)
+- **Framer Motion** — animations
+- **Socket.io Client** — real-time multiplayer
+- **Firebase Auth** — user authentication (email + Google)
+- **React Router** — page navigation
+
+### Backend
+- **Node.js** + **Express** — REST API
+- **Socket.io** — real-time game state sync and chat
+- **Mongoose** + **MongoDB Atlas** — cloud database for scores
+- **dotenv** — environment variable management
+
+### Infrastructure
+- **AWS EC2** (Ubuntu 24) — cloud server
+- **PM2** — process manager, keeps backend alive 24/7
+- **Nginx** — reverse proxy, serves frontend and routes API traffic
+
+---
+
+## 🗂 Project Structure
+
+```
+memory-wars/
+├── src/
+│   ├── components/
+│   │   ├── GameBoard.jsx       # Card grid
+│   │   ├── GameController.jsx  # Game logic + score saving
+│   │   ├── Multiplayer.jsx     # Two-player layout
+│   │   ├── ChatBox.jsx         # Real-time chat
+│   │   ├── PlayerList.jsx      # Live online players
+│   │   └── Score.jsx           # Score display
+│   ├── pages/
+│   │   ├── Welcome.jsx         # Auth page (login + signup)
+│   │   ├── Game.jsx            # Main game page
+│   │   ├── GameOver.jsx        # End screen + leaderboard
+│   │   └── pages.jsx           # Route definitions
+│   ├── firebase.js             # Firebase config + auth setup
+│   └── App.jsx                 # Root component + socket init
+├── server/
+│   └── server.js               # Express + Socket.io backend
+├── public/
+└── index.html
+```
+
+---
+
+## ⚙️ Local Development Setup
+
+### Prerequisites
+- Node.js 18+
+- A MongoDB Atlas account
+- A Firebase project
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/rafaymirzaa/memory-war.git
+cd memory-war
+```
+
+### 2. Install frontend dependencies
+
+```bash
+npm install
+```
+
+### 3. Install backend dependencies
+
+```bash
+cd server
+npm install
+```
+
+### 4. Set up environment variables
+
+Create a `.env` file inside the `server/` folder:
+
+```
+MONGO_URI=your_mongodb_atlas_connection_string
+PORT=5000
+```
+
+### 5. Set up Firebase
+
+Create `src/firebase.js` with your own Firebase project config:
+
+```js
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "...",
+  authDomain: "...",
+  projectId: "...",
+  storageBucket: "...",
+  messagingSenderId: "...",
+  appId: "..."
+};
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
+```
+
+### 6. Run the backend
+
+```bash
+cd server
+node server.js
+```
+
+### 7. Run the frontend
+
+```bash
+# from project root
+npm run dev
+```
+
+Frontend runs at `http://localhost:5173`
+Backend runs at `http://localhost:5000`
+
+---
+
+## 🚀 Deployment (AWS EC2)
+
+### Backend
+
+```bash
+# SSH into server
+ssh -i your-key.pem ubuntu@YOUR_EC2_IP
+
+# Start with PM2
+pm2 start server.js --name backend
+pm2 save
+pm2 startup
+```
+
+### Frontend
+
+```bash
+# Build on your machine
+npm run build
+
+# Copy to EC2
+scp -i your-key.pem -r dist/ ubuntu@YOUR_EC2_IP:~/frontend
+
+# On EC2 — copy to Nginx
+sudo cp -r ~/frontend/* /var/www/html/
+```
+
+### Nginx Config
+
+```nginx
+server {
+    listen 80;
+
+    location / {
+        root /var/www/html;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /socket.io/ {
+        proxy_pass http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /scores {
+        proxy_pass http://localhost:5000;
+    }
+}
+```
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Health check |
+| GET | `/scores` | Get top 10 high scores |
+| GET | `/scores/:playerName` | Get a player's score |
+| POST | `/scores` | Create or update a score |
+| DELETE | `/scores/:playerName` | Delete a player's score |
+
+---
+
+## ⚡ Socket Events
+
+| Event | Direction | Description |
+|-------|-----------|-------------|
+| `player:join` | Client → Server | Player enters the game |
+| `players:update` | Server → All | Updated list of online players |
+| `score:update` | Client → Server | Player's score changed |
+| `game:stateUpdate` | Client → Server | Card state sync for multiplayer |
+| `chat:send` | Client → Server | Send a chat message |
+| `chat:message` | Server → All | Broadcast chat message |
+
+---
+
+## 🔐 Authentication
+
+Built with **Firebase Authentication** supporting:
+- Email and password signup/login
+- Google OAuth login
+- Display name set on signup becomes the in-game player name
+
+---
+
+## 📝 Environment Variables
+
+| Variable | Location | Description |
+|----------|----------|-------------|
+| `MONGO_URI` | `server/.env` | MongoDB Atlas connection string |
+| `PORT` | `server/.env` | Backend port (default 5000) |
+
+> ⚠️ Never commit your `.env` file. It is already in `.gitignore`.
+
+---
+
+## 👤 Author
+
+**Rafay Mirza** — [@rafaymirzaa](https://github.com/rafaymirzaa)
